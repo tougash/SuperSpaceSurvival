@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -50,5 +51,10 @@ public class PlayerController : MonoBehaviour
     {
         // Update position of rigidbody
         _rb.MovePosition(transform.position + (transform.forward * _input.magnitude) *_speed * Time.deltaTime);
+        if(_rb.transform.position.y != 1)
+        {
+            Vector3 fixedPos = new Vector3(_rb.transform.position.x, 1, _rb.transform.position.z);
+            _rb.MovePosition(fixedPos);
+        }
     }
 }
