@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 3;
     [SerializeField] private float _turnSpeed = 1440;
+    [SerializeField] private Animator roboController;
     private Vector3 _input;
     
 
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour
     {
         if(_input != Vector3.zero)
         {
+            roboController.SetFloat("runSpeed", 1);
+
             // Create a matrix to offset input direction for isometric movement
             var matrix = Matrix4x4.Rotate(Quaternion.Euler(0,45,0));
             var skewedInput = matrix.MultiplyPoint3x4(_input);
@@ -44,6 +47,10 @@ public class PlayerController : MonoBehaviour
             var rot = Quaternion.LookRotation(relative, Vector3.up);
             // Update current rotation
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
+        }
+        else
+        {
+            roboController.SetFloat("runSpeed", 0);
         }
     }
 
@@ -56,5 +63,6 @@ public class PlayerController : MonoBehaviour
             Vector3 fixedPos = new Vector3(_rb.transform.position.x, 1, _rb.transform.position.z);
             _rb.MovePosition(fixedPos);
         }
+        
     }
 }
