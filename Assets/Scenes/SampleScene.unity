@@ -621,6 +621,8 @@ GameObject:
   - component: {fileID: 1955546582}
   - component: {fileID: 1955546586}
   - component: {fileID: 1955546587}
+  - component: {fileID: 1955546589}
+  - component: {fileID: 1955546588}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -752,6 +754,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1955546588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955546581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3dfd1243bb38343b87b3b2c7a298f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerState: 0
+--- !u!114 &1955546589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955546581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12f59a538ff4ff47bde242b1f176470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserDamage: 0
+  firing: 0
+  laser: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
