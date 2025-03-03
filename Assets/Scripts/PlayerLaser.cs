@@ -47,6 +47,7 @@ public class PlayerLaser : MonoBehaviour
         Debug.Log("Y");
         laser.SetActive(true);
         firing = true;
+        StopCoroutine("laserCooldown");
         StartCoroutine("laserHeating");
     }
 
@@ -54,24 +55,37 @@ public class PlayerLaser : MonoBehaviour
     {
         laser.SetActive(false);
         firing = false;
+        StopCoroutine("laserHeating");
+        StartCoroutine("laserCooldown");
     }
 
     IEnumerator laserCooldown()
     {
-        
-        while(overheated)
+        if(overheated)
         {
-            if(currentHeat == 0)
+            while(overheated)
             {
-                overheated = false;
-                break;
+                if(currentHeat == 0)
+                {
+                    overheated = false;
+                    break;
+                }
+                else
+                {
+                    currentHeat -=heatIncrease;
+                    yield return new WaitForSeconds(fireInterval*1.5f);
+                }
             }
-            else
+        }
+        else
+        {
+            while(currentHeat != 0)
             {
                 currentHeat -=heatIncrease;
                 yield return new WaitForSeconds(fireInterval/2);
             }
         }
+        
     }
 
     IEnumerator laserHeating()

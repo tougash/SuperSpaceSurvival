@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _turnSpeed = 1440;
     [SerializeField] private Animator roboController;
     private Vector3 _input;
-    
+    public Transform model;
     
 
     void Update() 
@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviour
             var rot = Quaternion.LookRotation(relative, Vector3.up);
             // Update current rotation
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
+        }
+        var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+        if (Physics.Raycast (ray, out var hit, 100)) {
+            var destPoint = hit.point;
+            var target = new Vector3(destPoint.x, transform.position.y, destPoint.z);
+            model.transform.LookAt(target);
         }
     }
 
