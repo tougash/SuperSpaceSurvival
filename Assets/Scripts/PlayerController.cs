@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator roboController;
     private Vector3 _input;
     
+    
 
     void Update() 
     {
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
         GatherInput();
         Look();
     }
-
+    
     void FixedUpdate() 
     {
         // Place Physics related functions in fixed update so they can trigger as many times per frame as necessary

@@ -24,7 +24,7 @@ public class EnemyGeneration : MonoBehaviour
         Vector3 randomPosition = new Vector3(Random.Range(-screenBounds.x-buffer, screenBounds.x+buffer), 1, Random.Range(-screenBounds.y-buffer, screenBounds.y+buffer));
 
         // Instantiate the enemy prefab at the random position
-        Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+        Instantiate(enemyPrefab, randomPosition, Quaternion.identity, transform);
     }
 
 }
