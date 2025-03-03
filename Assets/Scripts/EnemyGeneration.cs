@@ -18,10 +18,10 @@ public class EnemyGeneration : MonoBehaviour
     void SpawnEnemy()
     {
         // Get the screen bounds
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width+(Screen.width*0.1f), Screen.height+(Screen.height*0.1f), Camera.main.transform.position.z));
 
         // Generate a random position outside the screen
-        Vector3 randomPosition = new Vector3(Random.Range(-screenBounds.x-buffer, screenBounds.x+buffer), 1, Random.Range(-screenBounds.y-buffer, screenBounds.y+buffer));
+        Vector3 randomPosition = new Vector3(Random.Range(-screenBounds.x-buffer, screenBounds.x+buffer), 0.5f, Random.Range(-screenBounds.y-buffer, screenBounds.y+buffer));
 
         // Instantiate the enemy prefab at the random position
         Instantiate(enemyPrefab, randomPosition, Quaternion.identity, transform);
