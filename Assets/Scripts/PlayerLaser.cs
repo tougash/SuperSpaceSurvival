@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class PlayerLaser : MonoBehaviour
 {
     [Header("Laser Variables")]
-    public float laserDamage;
+    public int laserDamage = 25;
     public bool firing = false;
     public GameObject laser;
-     public Slider meter;
+    public Slider meter;
     [SerializeField] private bool overheated = false;
     public int maxHeat = 100;
     public int heatIncrease = 10;
@@ -46,6 +46,7 @@ public class PlayerLaser : MonoBehaviour
     {
         Debug.Log("Y");
         laser.SetActive(true);
+        currentHeat += heatIncrease;
         firing = true;
         StopCoroutine("laserCooldown");
         StartCoroutine("laserHeating");
