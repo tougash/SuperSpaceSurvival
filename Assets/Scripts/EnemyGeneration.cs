@@ -8,7 +8,7 @@ public class EnemyGeneration : MonoBehaviour
     public float spawnInterval = 5f; // Time interval to spawn enemies
 
     private Vector2 screenBounds;
-    private int buffer = 5;
+    private int buffer = 0;
 
     void Start()
     {
@@ -16,7 +16,12 @@ public class EnemyGeneration : MonoBehaviour
     }
 
     void SpawnEnemy()
-    {
+    {   
+        Transform cameraPivot = Camera.main.transform.parent; // Get the CameraPivot
+        if (cameraPivot == null) return;
+
+        Vector2 camPos = cameraPivot.position; // Get CameraPivot's position
+        
         // Get the screen bounds
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 

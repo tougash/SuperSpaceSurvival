@@ -1063,7 +1063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1955546587}
-  _speed: 3
+  _speed: 10
   _turnSpeed: 1440
   roboController: {fileID: 1347417533}
 --- !u!54 &1955546587
