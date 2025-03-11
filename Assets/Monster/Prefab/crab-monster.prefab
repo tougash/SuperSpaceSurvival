@@ -1675,6 +1675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  bioMass: {fileID: 5704400711916957723, guid: 4b43e42041e2f5c418f092e0aac9c399, type: 3}
 --- !u!1 &6037493212279571027
 GameObject:
   m_ObjectHideFlags: 0
