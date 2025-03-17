@@ -4,14 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class UpgradeManager : MonoBehaviour
 {
+
+    public static UpgradeManager instance;
 
     public List<Ability> allAbilities;
     public List<Ability> playerAbilities;
     public Button[] options;
     public Sprite[] allIcons;
+    Ability[] randomSelection;
+
+    public GameObject menu;
+
+    void Awake()
+    {
+        if(instance == null) instance = this;
+        menu.layer = LayerMask.NameToLayer("Non-Block UI");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +43,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void generateSelection()
     {
-        Ability[] randomSelection =  new Ability[3];
+        randomSelection =  new Ability[3];
         if(playerAbilities.Count < allAbilities.Count && allAbilities.Count - playerAbilities.Count >= 3)
         {
             randomSelection[0] = selectRandom(randomSelection);
@@ -61,4 +73,32 @@ public class UpgradeManager : MonoBehaviour
         description.text = ability.description;
         icon.overrideSprite = allIcons[(int)ability.type];
     }
+
+    public void setAbility(Button button)
+    {
+        if(button.name == "Option1")
+        {
+            playerAbilities.Add(randomSelection[0]);
+        }
+        else if (button.name == "Option2")
+        {
+            playerAbilities.Add(randomSelection[1]);
+        }
+        else
+        {
+            playerAbilities.Add(randomSelection[2]);
+        }
+        menu.layer = LayerMask.NameToLayer("Non-Block UI");
+        menu.SetActive(false);
+        PauseBehaviour.instance.unpauseGame();
+    }
+
+    public void setMenu()
+    {
+        PauseBehaviour.instance.pauseGame();
+        menu.SetActive(true);
+        menu.layer = LayerMask.NameToLayer("UI");
+        generateSelection();
+    }
+
 }

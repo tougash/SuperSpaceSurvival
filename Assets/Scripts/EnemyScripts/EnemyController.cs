@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseBehaviour.instance.GetIsPaused()) { return; }
         transform.LookAt(Player);
         if (Vector3.Distance(transform.position, Player.position) >= MinDist && !attacking)
         {

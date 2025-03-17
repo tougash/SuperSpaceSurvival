@@ -8,7 +8,7 @@ public class PlaneGeneration : MonoBehaviour
 {
     public GameObject plane;
     public GameObject player;
-
+    private List<GameObject> pool;
     private int radius = 2;
     private int planeOffset = 50;
 
@@ -24,6 +24,17 @@ public class PlaneGeneration : MonoBehaviour
 
     private Hashtable tilePlane = new Hashtable();
 
+
+    private void Awake() {
+        pool = new List<GameObject>();
+        GameObject tmp;
+        for(int i = 0; i< 25; i++)
+        {
+            tmp = Instantiate(plane, transform);
+            tmp.SetActive(false);
+            pool.Add(tmp);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -41,7 +52,12 @@ public class PlaneGeneration : MonoBehaviour
                     // If the tile isnt in the hashtable create a plane and add it to the hashtable
                     if(!tilePlane.Contains(pos))
                     {
-                        GameObject _plane = Instantiate(plane,pos,Quaternion.identity, this.transform);
+                        GameObject _plane = GetPooledObject();
+                        if(_plane != null)
+                        {
+                            _plane.transform.position = pos;
+                            _plane.SetActive(true);
+                        }
                         tilePlane.Add(pos,_plane);
                     }
                 }
@@ -51,6 +67,7 @@ public class PlaneGeneration : MonoBehaviour
         // check if the player has moved enough to warrant generating a new plane
         if(hasPlayerMoved())
         {
+            DeactivatePlanes();
             // generate planes in the raidus around the player
             for(int x = -radius; x < radius; x++)
             {
@@ -61,7 +78,12 @@ public class PlaneGeneration : MonoBehaviour
                     // If the tile isnt in the hashtable create a plane and add it to the hashtable
                     if(!tilePlane.Contains(pos))
                     {
-                        GameObject _plane = Instantiate(plane,pos,Quaternion.identity);
+                        GameObject _plane = GetPooledObject();
+                        if(_plane != null)
+                        {
+                            _plane.transform.position = pos;
+                            _plane.SetActive(true);
+                        }
                         tilePlane.Add(pos,_plane);
                     }
                 }
@@ -76,5 +98,29 @@ public class PlaneGeneration : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    GameObject GetPooledObject()
+    {
+        for(int i = 0; i < pool.Count; i++)
+        {
+            if(!pool[i].activeInHierarchy)
+            {
+                return pool[i];
+            }
+        }
+        return null;
+    }
+
+    void DeactivatePlanes()
+    {
+        for(int i = 0; i < pool.Count; i++)
+        {
+            if(Vector3.Distance(player.transform.position, pool[i].transform.position) > 80)
+            {
+                tilePlane.Remove(pool[i].transform.position);
+                pool[i].SetActive(false);
+            }
+        }
     }
 }

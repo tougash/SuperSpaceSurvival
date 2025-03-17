@@ -21,6 +21,7 @@ public class PlayerLaser : MonoBehaviour
 
     private void Update()
     {
+        if (PauseBehaviour.instance.GetIsPaused()) { return; }
         if(Input.GetButtonDown("Fire1") && !firing && !overheated)
         {
             Debug.Log("X");
