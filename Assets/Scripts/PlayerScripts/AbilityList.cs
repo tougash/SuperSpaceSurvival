@@ -12,9 +12,10 @@ public class FleetFoot:Ability
         type = AbilityType.SPEED;
     }
 
-    public void effect(PlayerStats player)
+    public override void effect(PlayerStats stats, PlayerController player)
     {
-        player.setSpeedMod(player.getSpeedMod() + 3);
+        stats.setSpeedMod(stats.getSpeedMod() + 3);
+        player.updateCurrentSpeed();
     }
 }
 
@@ -28,7 +29,7 @@ public class StrongBody:Ability
         type = AbilityType.HEALTH;
     }
 
-    public void effect(PlayerStats player)
+    public void Effect(PlayerStats player)
     {
         player.setHealthMod(player.getHealthMod() + 3);
     }
@@ -44,7 +45,7 @@ public class AdvancedWeapons:Ability
         type = AbilityType.DAMAGE;
     }
 
-    public void effect(PlayerStats player)
+    public void Effect(PlayerStats player)
     {
         player.setDamageMod(player.getDamageMod() + 3);
     }
