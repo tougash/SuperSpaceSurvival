@@ -52,7 +52,14 @@ public class UpgradeManager : MonoBehaviour
             updateButton(options[0], randomSelection[0]);
             updateButton(options[1], randomSelection[1]);
             updateButton(options[2], randomSelection[2]);
+            return;
         }
+        menu.layer = LayerMask.NameToLayer("Non-Block UI");
+        menu.SetActive(false);
+        options[0].gameObject.SetActive(true);
+        options[1].gameObject.SetActive(true);
+        options[2].gameObject.SetActive(true);
+        PauseBehaviour.instance.unpauseGame();
     }
 
     private Ability selectRandom(Ability[] currentSelected)
@@ -66,6 +73,7 @@ public class UpgradeManager : MonoBehaviour
 
     void updateButton(Button button, Ability ability)
     {
+        if (ability == null) button.gameObject.SetActive(false);
         TMP_Text name = button.transform.Find("AbilityName").GetComponent<TMP_Text>();
         TMP_Text description = button.transform.Find("AbilityDescription").GetComponent<TMP_Text>();
         Image icon = button.transform.Find("Icon").GetComponent<Image>();
@@ -90,6 +98,9 @@ public class UpgradeManager : MonoBehaviour
         }
         menu.layer = LayerMask.NameToLayer("Non-Block UI");
         menu.SetActive(false);
+        options[0].gameObject.SetActive(true);
+        options[1].gameObject.SetActive(true);
+        options[2].gameObject.SetActive(true);
         PauseBehaviour.instance.unpauseGame();
     }
 

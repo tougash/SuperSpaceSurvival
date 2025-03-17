@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody e_Rigidbody;
     public int MoveSpeed = 4;
     int MinDist = 0;
-    bool attacking = false;
+    [SerializeField]bool attacking = false;
     public GameObject attackBox;
     public float attackTime = 0.75f;
     

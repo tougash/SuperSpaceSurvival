@@ -24,7 +24,6 @@ public class PlayerLaser : MonoBehaviour
         if (PauseBehaviour.instance.GetIsPaused()) { return; }
         if(Input.GetButtonDown("Fire1") && !firing && !overheated)
         {
-            Debug.Log("X");
             Shoot();
         }
         else if (Input.GetButtonUp("Fire1") && firing)
@@ -47,7 +46,6 @@ public class PlayerLaser : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("Y");
         laser.SetActive(true);
         currentHeat += heatIncrease;
         firing = true;

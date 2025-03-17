@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -13,9 +15,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _input;
     public Transform model;
     public PlayerStats stats;
+    List<Ability> abilities;
 
-    void Awake()
+    void Start()
     {
+        abilities = new List<Ability>();
     }
 
     void Update() 
@@ -24,6 +28,13 @@ public class PlayerController : MonoBehaviour
         // Gather input and change rotation once per frame
         GatherInput();
         Look();
+        int num = UpgradeManager.instance.playerAbilities.Except(abilities).ToArray().Length;
+        if( num > 0 && UpgradeManager.instance.playerAbilities.Count > 0)
+        {
+            Ability newAbility = UpgradeManager.instance.playerAbilities.Last();
+            InvokeAbility(newAbility);
+            abilities = new List<Ability>(UpgradeManager.instance.playerAbilities);
+        }
     }
     
     void FixedUpdate() 
@@ -58,7 +69,6 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast (ray, out var hit, 100, LayerMask.GetMask("Ground"))) {
             var destPoint = hit.point;
             var target = new Vector3(destPoint.x, transform.position.y, destPoint.z);
-            Debug.Log(destPoint);
             model.transform.LookAt(target);
         }
     }
@@ -74,8 +84,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void updateCurrentSpeed()
+    void InvokeAbility(Ability ability)
     {
-        _speed = 3+(2*stats.getSpeedMod());
+        if(ability.isPassive)
+        {
+            
+            ability.effect(stats, this);
+        }
+    }
+
+    public void updateCurrentSpeed()
+    {
+        _speed = 3+stats.getSpeedMod();
     }
 }
