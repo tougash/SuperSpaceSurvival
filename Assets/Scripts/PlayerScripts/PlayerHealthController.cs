@@ -15,6 +15,7 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseBehaviour.instance.GetIsPaused()) { return; }
         if(healthAmount <= 0)
         {
             Die();

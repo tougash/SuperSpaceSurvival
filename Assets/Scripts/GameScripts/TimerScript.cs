@@ -18,6 +18,5 @@ public class TimerScript : MonoBehaviour
     {
         counter++; // Increment counter
         timerText.text = counter.ToString(); // Update timer text
-        
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,8 +14,13 @@ public class PlayerController : MonoBehaviour
     public Transform model;
     public PlayerStats stats;
 
+    void Awake()
+    {
+    }
+
     void Update() 
     {
+        if (PauseBehaviour.instance.GetIsPaused()) { return; }
         // Gather input and change rotation once per frame
         GatherInput();
         Look();
@@ -22,6 +28,7 @@ public class PlayerController : MonoBehaviour
     
     void FixedUpdate() 
     {
+        if (PauseBehaviour.instance.GetIsPaused()) { return; }
         // Place Physics related functions in fixed update so they can trigger as many times per frame as necessary
         Move();
     }
@@ -47,10 +54,11 @@ public class PlayerController : MonoBehaviour
             // Update current rotation
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
         }
-        var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-        if (Physics.Raycast (ray, out var hit, 100)) {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast (ray, out var hit, 100, LayerMask.GetMask("Ground"))) {
             var destPoint = hit.point;
             var target = new Vector3(destPoint.x, transform.position.y, destPoint.z);
+            Debug.Log(destPoint);
             model.transform.LookAt(target);
         }
     }

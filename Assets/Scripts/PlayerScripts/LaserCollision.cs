@@ -6,7 +6,7 @@ using UnityEngine;
 public class LaserCollision : MonoBehaviour
 {
     public PlayerLaser laserScript;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         EnemyHealthController kController = other.gameObject.GetComponent<EnemyHealthController>();
         if(kController)

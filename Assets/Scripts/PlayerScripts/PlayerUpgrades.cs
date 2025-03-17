@@ -10,13 +10,19 @@ public class PlayerUpgrades : MonoBehaviour
     public int nextLevel = 10;
     public int currentExp = 0;
 
+
+    void Update()
+    {
+        checkLevelUp();
+    }
+
     void onLevelUp()
     {
         playerCurrentLevel++;
         currentExp = currentExp-nextLevel;
         nextLevel*=2;
-        Time.timeScale = 0f;
         // Select Ability
+        UpgradeManager.instance.setMenu();
     }
 
     void checkLevelUp()

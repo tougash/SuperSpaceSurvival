@@ -21,7 +21,8 @@ public class EnemyHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isAlive())
+        if (PauseBehaviour.instance.GetIsPaused()) { return; }
+        if(!isAlive() && gameObject.activeInHierarchy)
         {
             Die();
         }
@@ -36,11 +37,15 @@ public class EnemyHealthController : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y = 1;
         Instantiate(bioMass, pos, Quaternion.identity);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
+    }
+    public void resetHealth()
+    {
+        currentHealth = maxHealth;
     }
 }
