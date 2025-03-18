@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ability Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 399310a04794d704d8c37d20f8e5e261, type: 2}
   m_sharedMaterial: {fileID: 4936195380263499220, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_margin: {x: 64.478806, y: 0, z: 154.80399, w: 168.80186}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &54837623
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_text: The Description of What the Ability Does for the player. It can do lots
     of things and will be very hard to create.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 399310a04794d704d8c37d20f8e5e261, type: 2}
   m_sharedMaterial: {fileID: 4936195380263499220, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_margin: {x: -187.27046, y: 0, z: -350.61685, w: -68.41165}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &149952261
@@ -889,7 +889,7 @@ MonoBehaviour:
   m_text: The Description of What the Ability Does for the player. It can do lots
     of things and will be very hard to create.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 399310a04794d704d8c37d20f8e5e261, type: 2}
   m_sharedMaterial: {fileID: 4936195380263499220, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -953,7 +953,7 @@ MonoBehaviour:
   m_margin: {x: -187.27046, y: 0, z: -350.61685, w: -68.41165}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &549972462
@@ -1222,7 +1222,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6b021764b07a7804ab9a8555e42fb623, type: 3}
+    m_Font: {fileID: 12800000, guid: 16a320ba0e01c044eba664b11344c174, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 1
@@ -1315,7 +1315,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ability Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 399310a04794d704d8c37d20f8e5e261, type: 2}
   m_sharedMaterial: {fileID: 4936195380263499220, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_margin: {x: 64.478806, y: 0, z: 142.7013, w: 168.80186}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &688578891
@@ -1979,7 +1979,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ability Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 399310a04794d704d8c37d20f8e5e261, type: 2}
   m_sharedMaterial: {fileID: 4936195380263499220, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2043,7 +2043,7 @@ MonoBehaviour:
   m_margin: {x: 64.478806, y: 0, z: 155.80487, w: 168.80186}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &812539436
@@ -2775,7 +2775,7 @@ MonoBehaviour:
   m_text: The Description of What the Ability Does for the player. It can do lots
     of things and will be very hard to create.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 399310a04794d704d8c37d20f8e5e261, type: 2}
   m_sharedMaterial: {fileID: 4936195380263499220, guid: b2010494e5fe4da48bd3cc7fe8841d1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2839,7 +2839,7 @@ MonoBehaviour:
   m_margin: {x: -187.27046, y: 0, z: -350.61685, w: -68.41165}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1487400828
