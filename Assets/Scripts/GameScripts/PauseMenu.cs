@@ -6,14 +6,22 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
 
+    public GameObject menu;
+
     // Update is called once per frame
     void Update()
     {
-        if(PauseBehaviour.instance.isPaused)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(PauseBehaviour.instance.isPaused)
             {
+                menu.SetActive(false);
                 PauseBehaviour.instance.unpauseGame();
+            }
+            else
+            {
+                menu.SetActive(true);
+                PauseBehaviour.instance.pauseGame();
             }
         }
     }
