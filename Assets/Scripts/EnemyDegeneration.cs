@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class EnemyDegeneration : MonoBehaviour
 {
-    private Vector2 screenBounds;
-    private bool boundsFlag = false;
+    private bool hasBeenVisible = false;
+    private Camera cam;
 
     void Start()
     {
-        // Calculate once on Start (assuming the screen size does not change dynamically)
-        screenBounds = new Vector2(Camera.main.orthographicSize * Screen.width / Screen.height, Camera.main.orthographicSize);
+        cam = Camera.main; // Only check against the main gameplay camera
     }
 
     void Update()
     {
-        Transform cameraPivot = Camera.main.transform.parent; // Get the CameraPivot
-        if (cameraPivot == null) return;
+        Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
 
-        Vector2 camPos = cameraPivot.position; // Get CameraPivot's position
+        // Check if enemy is in front of the camera and within view
+        bool onScreen = viewPos.z > 0 && viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1;
 
-        if (!boundsFlag && transform.position.x > camPos.x - screenBounds.x && transform.position.x < camPos.x + screenBounds.x &&
-            transform.position.y > camPos.y - screenBounds.y && transform.position.y < camPos.y + screenBounds.y)
+        if (!hasBeenVisible && onScreen)
         {
-            boundsFlag = true;
+            hasBeenVisible = true;
         }
 
-        if (boundsFlag && (transform.position.x < camPos.x - screenBounds.x || transform.position.x > camPos.x + screenBounds.x ||
-                        transform.position.y < camPos.y - screenBounds.y || transform.position.y > camPos.y + screenBounds.y))
+        // If it was visible and now offscreen, destroy it
+        if (hasBeenVisible && !onScreen)
         {
             Destroy(gameObject);
+            EnemyGeneration.DecrementSpawn();
         }
+        Debug.DrawLine(transform.position, cam.transform.position);
     }
 }
