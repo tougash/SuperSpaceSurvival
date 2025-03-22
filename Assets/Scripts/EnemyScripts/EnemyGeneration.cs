@@ -5,56 +5,64 @@ using UnityEngine;
 public class EnemyGeneration : MonoBehaviour
 {
      public GameObject enemyPrefab; // Reference to the enemy prefab
-    public float spawnInterval = 5f; // Time interval to spawn enemies
 
-    private List<GameObject> pool;
+    private float minSpawns = 50;
+    private float maxSpawns = 100;
+
+    public static int currentSpawns = 0;
     private Vector2 screenBounds;
-    private int buffer = 5;
-
-    private void Awake() {
-        pool = new List<GameObject>();
-        GameObject tmp;
-        for(int i = 0; i < 15; i++)
-        {
-            tmp = Instantiate(enemyPrefab, transform);
-            tmp.SetActive(false);
-            pool.Add(tmp);
-        }
-    }
 
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0f, spawnInterval); // Start spawning enemies every 5 seconds
+        StartCoroutine(SpawnEnemiesRoutine());
+    }
+
+    IEnumerator SpawnEnemiesRoutine()
+    {
+        yield return new WaitForSeconds(3f); // Wait for 3 seconds before spawning starts
+        while (true) // Runs indefinitely
+            {
+            
+                if (currentSpawns < minSpawns)
+                {
+                    SpawnEnemy();
+                    currentSpawns++;
+                }
+                else if (currentSpawns >= minSpawns && currentSpawns < maxSpawns)
+                {
+                    SpawnEnemy();
+                    currentSpawns++;
+                    yield return new WaitForSeconds(1f); // Wait for 1 seconds before checking again
+                }
+
+                Debug.Log("Current Spawns: " + currentSpawns);
+                yield return new WaitForSeconds(0.5f); // Wait for 2 seconds before checking again
+            }
     }
 
     void SpawnEnemy()
-    {
-        // Get the screen bounds
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+    {   
+        // Get the screen bounds for the orthographic camera
+        Camera camera = Camera.main;
+        float screenHeight = camera.orthographicSize * 2; // Full height of the camera view
+        float screenWidth = screenHeight * camera.aspect; // Width is calculated from height and aspect ratio
 
+ 
         // Generate a random position outside the screen
-        Vector3 randomPosition = new Vector3(Random.Range(-screenBounds.x-buffer, screenBounds.x+buffer), 0.5f, Random.Range(-screenBounds.y-buffer, screenBounds.y+buffer));
+        Vector3 randomPosition = new Vector3(
+            Random.Range(-screenWidth, screenWidth), // Random X position outside the screen width
+            1, // The Y position (assuming enemies spawn at a fixed height above the ground)
+            Random.Range(-screenHeight, screenHeight) // Random Z position outside the screen height
+        );
 
         // Instantiate the enemy prefab at the random position
-        GameObject enemy = GetPooledObject();
-        if(enemy)
-        {
-            enemy.transform.position = randomPosition;
-            enemy.GetComponent<EnemyHealthController>().resetHealth();
-            enemy.SetActive(true);
-        }
-        //Instantiate(enemyPrefab, randomPosition, Quaternion.identity, transform);
+        Instantiate(enemyPrefab, randomPosition, Quaternion.identity, transform);
     }
 
-    GameObject GetPooledObject()
+
+    public static void DecrementSpawn()
     {
-        for(int i = 0; i < pool.Count; i++)
-        {
-            if(!pool[i].activeInHierarchy)
-            {
-                return pool[i];
-            }
-        }
-        return null;
+        currentSpawns--; // Modify the shared counter
     }
+
 }
