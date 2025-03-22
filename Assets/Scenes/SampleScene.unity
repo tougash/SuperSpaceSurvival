@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 311903046}
   - component: {fileID: 311903048}
   - component: {fileID: 311903047}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +733,7 @@ GameObject:
   - component: {fileID: 445277113}
   - component: {fileID: 445277115}
   - component: {fileID: 445277114}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 644817190}
   - component: {fileID: 644817189}
   - component: {fileID: 644817191}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Timertext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1600,7 +1600,7 @@ GameObject:
   - component: {fileID: 717155825}
   - component: {fileID: 717155827}
   - component: {fileID: 717155826}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1856,7 +1856,7 @@ GameObject:
   - component: {fileID: 802812244}
   - component: {fileID: 802812246}
   - component: {fileID: 802812245}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2065,7 +2065,7 @@ GameObject:
   - component: {fileID: 841779633}
   - component: {fileID: 841779635}
   - component: {fileID: 841779634}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2511,7 +2511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1165247389}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2742,11 +2742,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1241427879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77022d789e9b5b444bf0c1652171da3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7658836014b488844865e1188c5a0b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6037493212279571025, guid: f52853e5e1f08d044bbf4ba48ecefeca, type: 3}
-  spawnInterval: 5
 --- !u!1 &1318123026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,7 +2830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1335617068}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3499,7 +3498,7 @@ GameObject:
   - component: {fileID: 1933017448}
   - component: {fileID: 1933017450}
   - component: {fileID: 1933017449}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3919,7 +3918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1964542505}
   - component: {fileID: 1964542506}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: HeatMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4010,7 +4009,7 @@ GameObject:
   - component: {fileID: 2075039515}
   - component: {fileID: 2075039517}
   - component: {fileID: 2075039516}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4116,7 +4115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2118530712}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

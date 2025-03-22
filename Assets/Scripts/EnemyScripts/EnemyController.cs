@@ -7,10 +7,11 @@ public class EnemyController : MonoBehaviour
     private Transform Player;
     private Rigidbody e_Rigidbody;
     public int MoveSpeed = 4;
-    int MinDist = 0;
+    int MinDist = 1;
     [SerializeField]bool attacking = false;
     public GameObject attackBox;
     public float attackTime = 0.75f;
+
     
     void Start()
     {
@@ -32,10 +33,10 @@ public class EnemyController : MonoBehaviour
         {
             e_Rigidbody.MovePosition(transform.position+ new Vector3(transform.forward.x, 0f, transform.forward.z ) * MoveSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, Player.position) <= 1)
-            {
-                StartCoroutine("AttackPlayer");
-            }
+        }
+        if (Vector3.Distance(transform.position, Player.position) <= 1.5)
+        {
+            StartCoroutine("AttackPlayer");
         }
     }
 
