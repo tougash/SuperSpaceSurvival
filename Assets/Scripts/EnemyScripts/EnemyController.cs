@@ -7,10 +7,16 @@ public class EnemyController : MonoBehaviour
     private Transform Player;
     private Rigidbody e_Rigidbody;
     public int MoveSpeed = 4;
+<<<<<<< HEAD:Assets/Scripts/EnemyScripts/EnemyController.cs
     int MinDist = 0;
     [SerializeField]bool attacking = false;
     public GameObject attackBox;
     public float attackTime = 0.75f;
+=======
+    int MaxDist = 10;
+    int MinDist = 5;
+
+>>>>>>> JoeFoote-main:Assets/Scripts/EnemyController.cs
     
     void Start()
     {
