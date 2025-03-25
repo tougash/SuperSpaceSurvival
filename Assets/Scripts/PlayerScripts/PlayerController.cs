@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _input;
     public Transform model;
     public PlayerStats stats;
+    public PlayerHealthController health;
     List<Ability> abilities;
 
     void Start()

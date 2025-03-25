@@ -3685,6 +3685,7 @@ MonoBehaviour:
   roboController: {fileID: 0}
   model: {fileID: 2098051481}
   stats: {fileID: 1955546590}
+  health: {fileID: 1955546589}
 --- !u!54 &1955546587
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3745,7 +3746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8bd348068a416409644bd417593027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 445277114}
+  healthBar: {fileID: 2118530711}
+  currentHealth: {fileID: 445277114}
   healthAmount: 100
   stats: {fileID: 1955546590}
 --- !u!114 &1955546590
@@ -3760,6 +3762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3dfd1243bb38343b87b3b2c7a298f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
+  damage: 1
+  speed: 1
 --- !u!114 &1955546591
 MonoBehaviour:
   m_ObjectHideFlags: 0

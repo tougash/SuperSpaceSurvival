@@ -29,9 +29,10 @@ public class StrongBody:Ability
         type = AbilityType.HEALTH;
     }
 
-    public void Effect(PlayerStats player)
+    public override void effect(PlayerStats stats, PlayerController player)
     {
-        player.setHealthMod(player.getHealthMod() + 3);
+        stats.setHealthMod(stats.getHealthMod() + 3);
+        player.health.updateMaxHealth();
     }
 }
 
@@ -45,8 +46,8 @@ public class AdvancedWeapons:Ability
         type = AbilityType.DAMAGE;
     }
 
-    public void Effect(PlayerStats player)
+    public override void effect(PlayerStats stats, PlayerController player)
     {
-        player.setDamageMod(player.getDamageMod() + 3);
+        stats.setDamageMod(stats.getDamageMod() + 3);
     }
 }

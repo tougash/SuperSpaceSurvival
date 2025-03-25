@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerHealthController : MonoBehaviour
 {
-
-    public Image healthBar;
+    public GameObject healthBar;
+    public Image currentHealth;
     public float healthAmount = 100f;
     int maxHealth = 100;
     public PlayerStats stats;
@@ -25,14 +25,14 @@ public class PlayerHealthController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         healthAmount -= damage;
-        healthBar.fillAmount = healthAmount/100f;
+        currentHealth.fillAmount = healthAmount/100f;
     }
 
     public void Heal(float healAmount)
     {
-        healthAmount+= healAmount;
-        healthAmount = Mathf.Clamp(healAmount, 0, maxHealth);
-        healthBar.fillAmount = healthAmount/100f;
+        healthAmount += healAmount;
+        healthAmount = Mathf.Clamp(healthAmount, 0, maxHealth);
+        currentHealth.fillAmount = healthAmount/100f;
     }
 
     void Die()
@@ -40,9 +40,10 @@ public class PlayerHealthController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void updateMaxHealth() {
+    public void updateMaxHealth() {
         maxHealth = 100 + (10*stats.getHealthMod());
         Heal(10*stats.getHealthMod());
+        healthBar.transform.localScale = new Vector3(1.4f,1,1);
     }
 
 }
