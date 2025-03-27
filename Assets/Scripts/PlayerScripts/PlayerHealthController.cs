@@ -43,7 +43,6 @@ public class PlayerHealthController : MonoBehaviour
     public void updateMaxHealth() {
         maxHealth = 100 + (10*stats.getHealthMod());
         Heal(10*stats.getHealthMod());
-        healthBar.transform.localScale = new Vector3(1.4f,1,1);
     }
 
 }
