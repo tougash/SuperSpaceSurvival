@@ -51,3 +51,20 @@ public class AdvancedWeapons:Ability
         stats.setDamageMod(stats.getDamageMod() + 3);
     }
 }
+
+public class Ghost:Ability
+{
+    public Ghost()
+    {
+        name = "Ghost";
+        description = "For 10 seconds, gain the ability to walk through objects";
+        isPassive = false;
+        type = AbilityType.SPEED;
+    }
+
+    public override void effect(PlayerStats stats, PlayerController player)
+    {
+        player.Intagible();
+    }
+
+}

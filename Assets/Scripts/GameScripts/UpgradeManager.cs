@@ -33,6 +33,7 @@ public class UpgradeManager : MonoBehaviour
         allAbilities.Add(new FleetFoot());
         allAbilities.Add(new StrongBody());
         allAbilities.Add(new AdvancedWeapons());
+        allAbilities.Add(new Ghost());
     }
 
     // Update is called once per frame
@@ -66,7 +67,7 @@ public class UpgradeManager : MonoBehaviour
     {
         Ability[] availableAbilities = allAbilities.Except(playerAbilities).ToArray();
         availableAbilities = availableAbilities.Except(currentSelected).ToArray();
-        int num = Random.Range(0, availableAbilities.Count() -1);
+        int num = Random.Range(0, availableAbilities.Count());
         Ability selected = availableAbilities[num];
         return selected;
     }
