@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     
-    private int health = 1;
-    private int damage = 1;
-    private int speed = 1;
+    [SerializeField] private int health = 1;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private int speed = 1;
 
     public int getHealthMod()
     {

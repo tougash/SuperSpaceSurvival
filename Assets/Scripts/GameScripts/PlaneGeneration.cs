@@ -9,7 +9,7 @@ public class PlaneGeneration : MonoBehaviour
     public GameObject plane;
     public GameObject player;
     private List<GameObject> pool;
-    private int radius = 2;
+    private int radius = 4;
     private int planeOffset = 50;
 
     private Vector3 startPos = Vector3.zero;
@@ -24,103 +24,56 @@ public class PlaneGeneration : MonoBehaviour
 
     private Hashtable tilePlane = new Hashtable();
 
+    float min_x,max_x,min_z,max_z;
 
     private void Awake() {
-        pool = new List<GameObject>();
-        GameObject tmp;
-        for(int i = 0; i< 25; i++)
-        {
-            tmp = Instantiate(plane, transform);
-            tmp.SetActive(false);
-            pool.Add(tmp);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Only do this if the player has not moved
-        if(startPos == Vector3.zero)
-        {
-            // Generate the initial planes in x and z direction using the radius
+        // Generate the initial planes in x and z direction using the radius
             for(int x = -radius; x < radius; x++)
             {
                 for(int z = -radius; z< radius; z++)
                 {
                     // Determine position for the tile
                     Vector3 pos = new Vector3((x*planeOffset + XPlayerLocation), 0.5f, (z*planeOffset + ZPlayerLocation));
+                    max_x = (pos.x > max_x) ? pos.x : max_x;
+                    min_x = (pos.x < min_x) ? pos.x : min_x;
+                    max_z = (pos.z > max_z) ? pos.z : max_z;
+                    min_z = (pos.x < min_z) ? pos.z : min_z;
                     // If the tile isnt in the hashtable create a plane and add it to the hashtable
                     if(!tilePlane.Contains(pos))
                     {
-                        GameObject _plane = GetPooledObject();
-                        if(_plane != null)
-                        {
-                            _plane.transform.position = pos;
-                            _plane.SetActive(true);
-                        }
+                        GameObject _plane = Instantiate(plane, pos, Quaternion.identity, gameObject.transform);
                         tilePlane.Add(pos,_plane);
                     }
                 }
             }
-        }
-
-        // check if the player has moved enough to warrant generating a new plane
-        if(hasPlayerMoved())
-        {
-            DeactivatePlanes();
-            // generate planes in the raidus around the player
-            for(int x = -radius; x < radius; x++)
-            {
-                for(int z = -radius; z< radius; z++)
-                {
-                    // Determine position for the tilet
-                    Vector3 pos = new Vector3((x*planeOffset + XPlayerLocation), 0, (z*planeOffset + ZPlayerLocation));
-                    // If the tile isnt in the hashtable create a plane and add it to the hashtable
-                    if(!tilePlane.Contains(pos))
-                    {
-                        GameObject _plane = GetPooledObject();
-                        if(_plane != null)
-                        {
-                            _plane.transform.position = pos;
-                            _plane.SetActive(true);
-                        }
-                        tilePlane.Add(pos,_plane);
-                    }
-                }
-            }
-        }
     }
 
-    bool hasPlayerMoved()
+    // Update is called once per frame
+    void Update()
     {
-        if(Mathf.Abs(XPlayerMove) >= planeOffset || Mathf.Abs(ZPlayerMove) >= planeOffset)
+        if(player.transform.position.x > max_x )
         {
-            return true;
+            Vector3 newPos = player.transform.position;
+            newPos.x = min_x;
+            player.transform.position = newPos;
         }
-        return false;
-    }
-
-    GameObject GetPooledObject()
-    {
-        for(int i = 0; i < pool.Count; i++)
+        else if (player.transform.position.x < min_x ) 
         {
-            if(!pool[i].activeInHierarchy)
-            {
-                return pool[i];
-            }
+            Vector3 newPos = player.transform.position;
+            newPos.x = max_x;
+            player.transform.position = newPos;
         }
-        return null;
-    }
-
-    void DeactivatePlanes()
-    {
-        for(int i = 0; i < pool.Count; i++)
+        if(player.transform.position.z > max_z )
         {
-            if(Vector3.Distance(player.transform.position, pool[i].transform.position) > 80)
-            {
-                tilePlane.Remove(pool[i].transform.position);
-                pool[i].SetActive(false);
-            }
+            Vector3 newPos = player.transform.position;
+            newPos.z = min_z;
+            player.transform.position = newPos;
+        }
+        else if (player.transform.position.z < min_z ) 
+        {
+            Vector3 newPos = player.transform.position;
+            newPos.z = max_z;
+            player.transform.position = newPos;
         }
     }
 }

@@ -15,6 +15,6 @@ public class Ability
         public string description;
         public bool isPassive;
         public AbilityType type;
-        public void effect(){}
+        public virtual void effect(){}
         public virtual void effect(PlayerStats playerStats, PlayerController playerController){}
 }

@@ -2,20 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _speed = 3;
+    [SerializeField] private float _speed = 7;
     [SerializeField] private float _turnSpeed = 1440;
     [SerializeField] private Animator roboController;
     private Vector3 _input;
     public Transform model;
     public PlayerStats stats;
+    public PlayerHealthController health;
     List<Ability> abilities;
+    Ability active1;
+    public TMP_Text abilityTimer;
+    public Sprite[] allIcons;
 
     void Start()
     {
@@ -32,7 +37,17 @@ public class PlayerController : MonoBehaviour
         if( num > 0 && UpgradeManager.instance.playerAbilities.Count > 0)
         {
             Ability newAbility = UpgradeManager.instance.playerAbilities.Last();
-            InvokeAbility(newAbility);
+            if(newAbility.isPassive)
+            {
+                InvokeAbility(newAbility);
+            }
+            else
+            {
+                active1 = newAbility;
+                abilityTimer.transform.Find("Icon").gameObject.SetActive(true);
+                Image icon = abilityTimer.transform.Find("Icon").GetComponent<Image>();
+                icon.overrideSprite = allIcons[(int)active1.type];
+            }
             abilities = new List<Ability>(UpgradeManager.instance.playerAbilities);
         }
     }
@@ -48,6 +63,10 @@ public class PlayerController : MonoBehaviour
     {
         // Get input from input axis
         _input = new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical"));
+        if(Input.GetKeyDown(KeyCode.Q) && active1 != null)
+        {
+            InvokeAbility(active1);
+        }
     }
 
     void Look()
@@ -76,7 +95,7 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         // Update position of rigidbody
-        _rb.MovePosition(transform.position + (transform.forward * _input.magnitude) *_speed * Time.deltaTime);
+        _rb.MovePosition(transform.position + (transform.forward * _input.normalized.magnitude) *_speed * Time.deltaTime);
         if(_rb.transform.position.y != 1)
         {
             Vector3 fixedPos = new Vector3(_rb.transform.position.x, 1, _rb.transform.position.z);
@@ -86,15 +105,38 @@ public class PlayerController : MonoBehaviour
 
     void InvokeAbility(Ability ability)
     {
-        if(ability.isPassive)
-        {
-            
-            ability.effect(stats, this);
-        }
+        ability.effect(stats, this);
     }
 
     public void updateCurrentSpeed()
     {
         _speed = 3+stats.getSpeedMod();
+    }
+
+    public void Intagible()
+    {
+        StartCoroutine("Ghost"); 
+    }
+
+    IEnumerator Ghost()
+    {
+        Debug.Log("start");
+        float remainingTime = 10;
+        gameObject.GetComponent<Collider>().enabled = false;
+        Image icon = abilityTimer.transform.Find("Icon").GetComponent<Image>();
+        var temp = icon.color;
+        temp.a = 0.5f;
+        icon.color = temp;
+        while(remainingTime > 0)
+        {
+            abilityTimer.SetText(remainingTime.ToString());
+            yield return new WaitForSeconds(1);
+            remainingTime-=1;
+        }
+        abilityTimer.SetText("");
+        Debug.Log("finished");
+        gameObject.GetComponent<Collider>().enabled = true;
+        temp.a = 1f;
+        icon.color = temp;
     }
 }
