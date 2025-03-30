@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public TMP_Text abilityTimer;
     public Sprite[] allIcons;
 
+    public GameObject grenade;
+
     void Start()
     {
         abilities = new List<Ability>();
@@ -116,6 +118,18 @@ public class PlayerController : MonoBehaviour
     public void Intagible()
     {
         StartCoroutine("Ghost"); 
+    }
+
+    public void ThrowGrenade()
+    {
+        GameObject tmp = Instantiate(grenade, transform.position, transform.rotation);
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast (ray, out var hit, 100, LayerMask.GetMask("Ground"))) 
+        {
+            Vector3 offsetToMouse = hit.point-tmp.transform.position;
+            Vector3 fixedVel = new Vector3(Mathf.Clamp(offsetToMouse.x, -5, 5), 0, Mathf.Clamp(offsetToMouse.z, -5, 5));
+            tmp.GetComponent<Rigidbody>().velocity = fixedVel;
+        }
     }
 
     IEnumerator Ghost()
