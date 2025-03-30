@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class FleetFoot:Ability
@@ -57,14 +58,32 @@ public class Ghost:Ability
     public Ghost()
     {
         name = "Ghost";
-        description = "For 10 seconds, gain the ability to walk through objects";
+        description = "For 10 seconds, gain the ability to walk through objects and enemies";
         isPassive = false;
         type = AbilityType.SPEED;
     }
 
+
     public override void effect(PlayerStats stats, PlayerController player)
     {
         player.Intagible();
+    }
+
+}
+
+public class GrenadeLob:Ability
+{
+    public GrenadeLob()
+    {
+        name = "Grenade";
+        description = "Throw a grenade that will detonate after 3 seconds, dealing a large amount of damage.";
+        isPassive = false;
+        type = AbilityType.DAMAGE;
+    }
+
+    public override void effect(PlayerStats stats, PlayerController player)
+    {
+        player.ThrowGrenade();
     }
 
 }
