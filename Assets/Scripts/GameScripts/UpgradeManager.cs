@@ -34,6 +34,7 @@ public class UpgradeManager : MonoBehaviour
         allAbilities.Add(new StrongBody());
         allAbilities.Add(new AdvancedWeapons());
         allAbilities.Add(new Ghost());
+        allAbilities.Add(new GrenadeLob());
     }
 
     // Update is called once per frame
