@@ -27,8 +27,8 @@ public class EnemyDegeneration : MonoBehaviour
         // If it was visible and now offscreen, destroy it
         if (hasBeenVisible && !onScreen)
         {
-            Destroy(gameObject);
-            EnemyGeneration.DecrementSpawn();
+            hasBeenVisible = false; // Reset for next time it goes offscreen
+            FindObjectOfType<EnemyGeneration>().DeactivateEnemy(gameObject); // Deactivate the enemy
         }
         Debug.DrawLine(transform.position, cam.transform.position);
     }

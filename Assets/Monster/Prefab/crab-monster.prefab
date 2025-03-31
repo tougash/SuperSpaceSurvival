@@ -1552,6 +1552,7 @@ GameObject:
   - component: {fileID: -8145084777768262604}
   - component: {fileID: 5525188892390933434}
   - component: {fileID: -5920617360517961364}
+  - component: {fileID: 4373999575367178379}
   m_Layer: 0
   m_Name: crab-monster
   m_TagString: Untagged
@@ -1691,6 +1692,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 15
+--- !u!114 &4373999575367178379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037493212279571025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0851b05482fa68f4385342153dc99c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6037493212279571027
 GameObject:
   m_ObjectHideFlags: 0
