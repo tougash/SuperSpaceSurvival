@@ -6,9 +6,9 @@ public class EnemyGeneration : MonoBehaviour
 {
      public GameObject enemyPrefab; // Reference to the enemy prefab
 
-    public float spawnCountDown = 2f; // Time before initial spawns
-    public int minSpawns = 50;
-    public int maxSpawns = 100;
+    public float spawnCountDown = 3.5f; // Time before initial spawns
+    public int MINSPAWNS = 3;
+    public int MAXSPAWNS = 150;
 
     public static int currentSpawns = 0;
 
@@ -24,7 +24,7 @@ public class EnemyGeneration : MonoBehaviour
         cam = Camera.main;
         orthographicSize = cam.orthographicSize;
         screenAspect = cam.aspect;
-        InitializePool(maxSpawns);
+        InitializePool(MAXSPAWNS); 
         StartCoroutine(SpawnEnemiesRoutine());
     }
 
@@ -40,27 +40,32 @@ public class EnemyGeneration : MonoBehaviour
 
     IEnumerator SpawnEnemiesRoutine()
     {
+        float spawnInterval = 0.5f; // Initial spawn interval
         yield return new WaitForSeconds(spawnCountDown); // Wait for __ seconds before starting spawns
 
-            // Spawn enemies based on the current spawn count
+        // Spawn enemies based on the current spawn count
         while (true) // Runs indefinitely
-            {
-            
-                if (currentSpawns < minSpawns)
+            {   
+                int minutesPassed = Mathf.FloorToInt(Time.time / 60); // Get elapsed minutes
+                int spawnAmount = Mathf.Clamp(MINSPAWNS + (minutesPassed * 3), MINSPAWNS, MAXSPAWNS); // Scale spawn count
+                
+                // Reduce spawn interval over time, minimum 1 second
+                if (minutesPassed >= 1)
                 {
-                    SpawnEnemy();
-                    SpawnEnemy();
-                    SpawnEnemy();
-                    SpawnEnemy();
+                    spawnInterval = Mathf.Clamp(8f - (minutesPassed * 0.5f), 1f, 8f);
+                     for (int i = 0; i < spawnAmount; i++)
+                    {
+                        SpawnEnemy();
+                        yield return null; // Wait one frame before spawning the next enemy
+                    }
                 }
-                else if (currentSpawns >= minSpawns && currentSpawns < maxSpawns)
+                else
                 {
-                    SpawnEnemy();
-                    yield return new WaitForSeconds(1f); // Wait for 1 seconds before checking again
+                    SpawnEnemy(); // Spawn a single enemy
                 }
 
-                Debug.Log("Current Spawns: " + currentSpawns);
-                yield return new WaitForSeconds(0.5f); // Wait for 2 seconds before checking again
+                //Debug.Log("Current Spawns: " + currentSpawns);
+                yield return new WaitForSeconds(spawnInterval); // Wait for the spawn interval before checking again
             }
     }
 
@@ -71,13 +76,20 @@ public class EnemyGeneration : MonoBehaviour
         GameObject enemy = enemyPool.Dequeue();
         enemy.SetActive(true);
 
+        // Ensure health is reset
+        EnemyHealthController healthController = enemy.GetComponent<EnemyHealthController>();
+        if (healthController != null)
+        {
+            healthController.resetHealth();
+        }
+
         // Get camera world bounds relative to cameraPivot
         Vector3 pivotPosition = cameraPivot.position; // Use assigned pivot
         float camHeight = cam.orthographicSize;
         float camWidth = camHeight * cam.aspect;
 
 
-        float spawnBuffer = 4f; // Ensures enemies spawn fully outside view
+        float spawnBuffer = 6f; // Ensures enemies spawn fully outside view
 
         float x, z;
         bool spawnOnX = Random.value > 0.5f;

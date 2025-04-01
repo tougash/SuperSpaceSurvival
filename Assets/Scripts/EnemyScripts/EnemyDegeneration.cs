@@ -7,6 +7,10 @@ public class EnemyDegeneration : MonoBehaviour
     private bool hasBeenVisible = false;
     private Camera cam;
 
+    private float buffer = 0.5f; // Buffer to ensure the enemy is completely offscreen
+
+    private EnemyGeneration spawner; // Reference to the spawner
+
     void Start()
     {
         cam = Camera.main; // Only check against the main gameplay camera
@@ -17,14 +21,16 @@ public class EnemyDegeneration : MonoBehaviour
         Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
 
         // Check if enemy is in front of the camera and within view
-        bool onScreen = viewPos.z > 0 && viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1;
+        bool onScreen = viewPos.z > 0 && 
+                        viewPos.x > -buffer && viewPos.x < 1 + buffer && 
+                        viewPos.y > -buffer && viewPos.y < 1 + buffer;
 
         if (!hasBeenVisible && onScreen)
         {
             hasBeenVisible = true;
         }
 
-        // If it was visible and now offscreen, destroy it
+        // If it was visible and now offscreen, deactivate it
         if (hasBeenVisible && !onScreen)
         {
             hasBeenVisible = false; // Reset for next time it goes offscreen

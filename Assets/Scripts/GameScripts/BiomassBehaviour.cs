@@ -6,6 +6,8 @@ public class BiomassBehaviour : MonoBehaviour
 {
     public Camera cam;
     public Transform player;
+
+    public AudioSource expSound;
     int speed = 8;
 
     // Start is called before the first frame update
@@ -13,6 +15,7 @@ public class BiomassBehaviour : MonoBehaviour
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        expSound = GameObject.FindGameObjectWithTag("Sparkle").GetComponent<AudioSource>();
         transform.LookAt(cam.transform);
     }
 
@@ -28,6 +31,7 @@ public class BiomassBehaviour : MonoBehaviour
         {
             PlayerUpgrades playerLevel = other.GetComponent<PlayerUpgrades>();
             playerLevel.currentExp++;
+            expSound.PlayOneShot(expSound.clip); // Play the sound effect
             Destroy(gameObject); 
         }
     }

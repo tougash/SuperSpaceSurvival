@@ -104,6 +104,7 @@ public class UpgradeManager : MonoBehaviour
         options[1].gameObject.SetActive(true);
         options[2].gameObject.SetActive(true);
         PauseBehaviour.instance.unpauseGame();
+        PlayerUpgrades.ResumeGame();
     }
 
     public void setMenu()

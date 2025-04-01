@@ -10,6 +10,7 @@ public class EnemyHealthController : MonoBehaviour
     [SerializeField]
     private float currentHealth;
 
+
     [SerializeField]GameObject bioMass;
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class EnemyHealthController : MonoBehaviour
         }
     }
 
+
     bool isAlive()
     {
         return currentHealth>0;
@@ -37,7 +39,7 @@ public class EnemyHealthController : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y = 1;
         Instantiate(bioMass, pos, Quaternion.identity);
-        gameObject.SetActive(false);
+        FindObjectOfType<EnemyGeneration>().DeactivateEnemy(gameObject); // Deactivate the enemy
     }
 
     public void takeDamage(int damage)
