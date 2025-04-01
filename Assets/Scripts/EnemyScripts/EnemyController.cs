@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     private Transform Player;
     private Rigidbody e_Rigidbody;
     public int MoveSpeed = 4;
-    int MinDist = 1;
+    int MinDist = 0;
     [SerializeField]bool attacking = false;
     public GameObject attackBox;
     public float attackTime = 0.75f;
@@ -31,7 +31,9 @@ public class EnemyController : MonoBehaviour
         transform.LookAt(Player);
         if (Vector3.Distance(transform.position, Player.position) >= MinDist && !attacking)
         {
-            e_Rigidbody.MovePosition(transform.position+ new Vector3(transform.forward.x, 0f, transform.forward.z ) * MoveSpeed * Time.deltaTime);
+            Vector3 moveDirection = (Player.position - transform.position).normalized; // Get direction
+            moveDirection.y = 0; // Prevent vertical movement
+            e_Rigidbody.MovePosition(e_Rigidbody.position + moveDirection * MoveSpeed * Time.deltaTime);
 
         }
         if (Vector3.Distance(transform.position, Player.position) <= 1.5)

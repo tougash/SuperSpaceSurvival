@@ -72,38 +72,49 @@ public class PlayerController : MonoBehaviour
     }
 
     void Look()
+{
+    // Raycast from the mouse position in world space
+    var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    if (Physics.Raycast(ray, out var hit, 100, LayerMask.GetMask("Ground")))
     {
-        if(_input != Vector3.zero)
-        {
-            // Create a matrix to offset input direction for isometric movement
-            var matrix = Matrix4x4.Rotate(Quaternion.Euler(0,45,0));
-            var skewedInput = matrix.MultiplyPoint3x4(_input);
+        // Get the mouse position on the ground (ignoring the Y value)
+        var destPoint = hit.point;
+        var target = new Vector3(destPoint.x, transform.position.y, destPoint.z);
+        
+        // Rotate the model to face the mouse
+        model.transform.LookAt(target);
+    }
+}
 
-            // Find the relative angle between input and current rotations
-            var relative = (transform.position + skewedInput) - transform.position;
-            // Turn relative angle into a rotation
-            var rot = Quaternion.LookRotation(relative, Vector3.up);
-            // Update current rotation
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
-        }
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast (ray, out var hit, 100, LayerMask.GetMask("Ground"))) {
-            var destPoint = hit.point;
-            var target = new Vector3(destPoint.x, transform.position.y, destPoint.z);
-            model.transform.LookAt(target);
-        }
+void Move()
+{
+    // Move the character based on the input direction
+    Vector3 moveDirection = new Vector3(_input.x, 0, _input.z).normalized;
+
+    if (moveDirection != Vector3.zero)
+    {
+        // Create a matrix to offset input direction for isometric movement
+        var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
+        var skewedInput = matrix.MultiplyPoint3x4(moveDirection);
+
+        // Find the relative angle between input and current rotations
+        var relative = (transform.position + skewedInput) - transform.position;
+
+        // Rotate the player towards the input direction, independent of looking at the mouse
+        var rot = Quaternion.LookRotation(relative, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
+
+        // Move the player forward in the walking direction
+        _rb.MovePosition(transform.position + transform.forward * _speed * Time.deltaTime);
     }
 
-    void Move()
+    // Keep the player at the correct Y position (if needed for level design)
+    if (_rb.transform.position.y != 1)
     {
-        // Update position of rigidbody
-        _rb.MovePosition(transform.position + (transform.forward * _input.normalized.magnitude) *_speed * Time.deltaTime);
-        if(_rb.transform.position.y != 1)
-        {
-            Vector3 fixedPos = new Vector3(_rb.transform.position.x, 1, _rb.transform.position.z);
-            _rb.MovePosition(fixedPos);
-        }
+        Vector3 fixedPos = new Vector3(_rb.transform.position.x, 1, _rb.transform.position.z);
+        _rb.MovePosition(fixedPos);
     }
+}
 
     void InvokeAbility(Ability ability)
     {

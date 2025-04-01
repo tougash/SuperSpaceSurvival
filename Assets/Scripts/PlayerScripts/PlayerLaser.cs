@@ -65,11 +65,13 @@ public class PlayerLaser : MonoBehaviour
     {
         if(overheated)
         {
+            LaserSoundPlayer.SetOverheatedState(true);
             while(overheated)
             {
                 if(currentHeat == 0)
                 {
                     overheated = false;
+                    LaserSoundPlayer.SetOverheatedState(false);
                     break;
                 }
                 else
